@@ -1,0 +1,45 @@
+version: '3'
+
+vars:
+  CONFIGURATION: '{{.CONFIGURATION | default "Debug"}}'
+  SOLUTION: Allors.Tram.slnx
+  ARTIFACTS_DIR: artifacts
+  TESTS_DIR: artifacts/tests
+  NUGET_DIR: artifacts/nuget
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  DOTNET_NOLOGO: '1'
+
+tasks:
+  default:
+    deps: [pack]
+
+  clean:
+    desc: Clean artifacts and dotnet build outputs
+    cmds:
+      - rm -rf {{.ARTIFACTS_DIR}}
+      - dotnet clean {{.SOLUTION}}
+
+  restore:
+    desc: Restore NuGet packages
+    cmds:
+      - dotnet restore {{.SOLUTION}}
+
+  compile:
+    desc: Build all projects
+    deps: [restore]
+    cmds:
+      - dotnet build {{.SOLUTION}} --configuration {{.CONFIGURATION}} --no-restore
+
+  test:
+    desc: Run all tests
+    deps: [compile]
+    cmds:
+      - dotnet test Allors.Tram.Tests --configuration {{.CONFIGURATION}} --no-build --no-restore --logger "trx;LogFileName=Allors.Tram.Tests.trx" --results-directory {{.TESTS_DIR}}
+
+  pack:
+    desc: Create NuGet packages
+    deps: [test]
+    cmds:
+      - dotnet pack Allors.Tram --configuration {{.CONFIGURATION}} --output {{.NUGET_DIR}}

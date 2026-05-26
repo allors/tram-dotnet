@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Allors.Tram.Tests/Allors.Tram.Tests.csproj" />
+  <Project Path="Allors.Tram/Allors.Tram.csproj" />
+</Solution>

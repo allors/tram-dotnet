@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+      - 'v*.*.*-*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g. v0.1.0 or v0.1.0-alpha.1). Must already exist.'
+        required: true
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: nuget-release
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_NOLOGO: '1'
+      CONFIGURATION: Release
+      SOLUTION: Allors.Tram.slnx
+      NUGET_DIR: artifacts/nuget
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore "$SOLUTION"
+
+      - name: Build
+        run: dotnet build "$SOLUTION" --configuration "$CONFIGURATION" --no-restore
+
+      - name: Test
+        run: dotnet test "$SOLUTION" --configuration "$CONFIGURATION" --no-build
+
+      - name: Pack - Allors.Tram
+        run: dotnet pack Allors.Tram --configuration "$CONFIGURATION" --no-build --output "$NUGET_DIR"
+
+      - name: Login to NuGet (trusted publishing via OIDC)
+        id: nuget-login
+        uses: nuget/login@v1
+        with:
+          user: allors-nuget
+
+      - name: Push to NuGet.org
+        run: |
+          dotnet nuget push "$NUGET_DIR/*.nupkg" \
+            --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            artifacts/nuget/*.nupkg
+            artifacts/nuget/*.snupkg

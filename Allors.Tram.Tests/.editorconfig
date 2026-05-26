@@ -1,0 +1,16 @@
+# Test-specific overrides. The repo-root .editorconfig has root = true,
+# so we keep this file non-root and limit it to rules that the rest of the
+# code base enforces but test/fixture conventions deliberately diverge from.
+[*.cs]
+dotnet_diagnostic.SA1600.severity = none   # docs not required
+dotnet_diagnostic.SA1601.severity = none   # docs not required
+dotnet_diagnostic.SA1602.severity = none   # docs not required
+dotnet_diagnostic.CS1591.severity = none   # docs not required
+dotnet_diagnostic.SA1300.severity = none   # uppercase first letter (TestBase exposes lowercase `m`/`schema` shortcuts)
+dotnet_diagnostic.SA1512.severity = none   # no blank line after single-line comment (section-banner style in fixtures)
+dotnet_diagnostic.SA1515.severity = none   # blank line before single-line comment (section-banner style in fixtures)
+dotnet_diagnostic.SA1516.severity = none   # blank line between members (fixture metadata is intentionally compact)
+dotnet_diagnostic.CA1707.severity = none   # underscores in test names (xUnit Method_Scenario_Expected convention)
+dotnet_diagnostic.CA1822.severity = none   # mark as static (TestBase helpers remain instance for ergonomics)
+dotnet_diagnostic.CA1852.severity = none   # types can be sealed (test helpers used by xUnit reflection)
+dotnet_diagnostic.S2325.severity = none    # make static (same rationale as CA1822)

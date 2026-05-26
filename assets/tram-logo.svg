@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200">
+  <!-- Concept 1b: Side-view tram silhouette, flat design -->
+
+  <!-- Pantograph -->
+  <line x1="120" y1="30" x2="105" y2="55" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="120" y1="30" x2="135" y2="55" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="110" y1="27" x2="130" y2="27" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="120" y1="27" x2="120" y2="30" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Main body -->
+  <path d="M30,145 L30,70 Q30,55 45,55 L245,55 Q265,55 270,70 L270,145 Z" fill="#0D7377"/>
+
+  <!-- Roof stripe -->
+  <path d="M30,70 Q30,55 45,55 L245,55 Q265,55 270,70 L270,65 Q265,55 245,55 L45,55 Q30,55 30,65 Z" fill="#0A5C5F"/>
+
+  <!-- Three windows (triple buffer) -->
+  <rect x="45" y="72" width="45" height="35" rx="5" fill="#F59E0B" opacity="0.9"/>
+  <rect x="100" y="72" width="45" height="35" rx="5" fill="#F59E0B" opacity="0.85"/>
+  <rect x="155" y="72" width="45" height="35" rx="5" fill="#F59E0B" opacity="0.8"/>
+
+  <!-- Door -->
+  <rect x="212" y="72" width="28" height="60" rx="4" fill="#0A5C5F"/>
+  <rect x="214" y="74" width="11" height="56" rx="3" fill="#F59E0B" opacity="0.5"/>
+  <rect x="227" y="74" width="11" height="56" rx="3" fill="#F59E0B" opacity="0.5"/>
+
+  <!-- Destination board -->
+  <rect x="50" y="118" width="80" height="16" rx="3" fill="#1E293B"/>
+  <text x="90" y="130" text-anchor="middle" fill="#F59E0B" font-family="monospace" font-size="10" font-weight="bold">ALLORS TRAM</text>
+
+  <!-- Lower body accent -->
+  <rect x="30" y="138" width="240" height="7" fill="#1E293B" opacity="0.25"/>
+
+  <!-- Wheel bogies -->
+  <rect x="45" y="145" width="60" height="8" rx="3" fill="#1E293B"/>
+  <rect x="195" y="145" width="60" height="8" rx="3" fill="#1E293B"/>
+
+  <!-- Wheels -->
+  <circle cx="58" cy="160" r="9" fill="#1E293B"/>
+  <circle cx="58" cy="160" r="4.5" fill="#0D7377"/>
+  <circle cx="92" cy="160" r="9" fill="#1E293B"/>
+  <circle cx="92" cy="160" r="4.5" fill="#0D7377"/>
+  <circle cx="208" cy="160" r="9" fill="#1E293B"/>
+  <circle cx="208" cy="160" r="4.5" fill="#0D7377"/>
+  <circle cx="242" cy="160" r="9" fill="#1E293B"/>
+  <circle cx="242" cy="160" r="4.5" fill="#0D7377"/>
+
+  <!-- Rail -->
+  <rect x="15" y="167" width="270" height="4" rx="2" fill="#1E293B"/>
+
+  <!-- Headlight -->
+  <circle cx="38" cy="130" r="5" fill="#F59E0B"/>
+  <!-- Tail light -->
+  <circle cx="264" cy="130" r="4" fill="#E11D48"/>
+</svg>

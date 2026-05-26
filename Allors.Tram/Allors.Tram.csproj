@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsPackable>true</IsPackable>
+    <PackageId>Allors.Tram</PackageId>
+    <Title>Allors Tram</Title>
+    <Description>Allors Transactional Memory.</Description>
+    <PackageDescription>Allors Transactional Memory.</PackageDescription>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>reactive;domain</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" PackagePath="" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\CHANGELOG.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Allors.Tram.Tests" />
+  </ItemGroup>
+
+</Project>

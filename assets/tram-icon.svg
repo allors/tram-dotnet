@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Concept 1d: Ultra-minimal/icon-sized tram -->
+
+  <!-- Pantograph -->
+  <line x1="32" y1="6" x2="26" y2="15" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="6" x2="38" y2="15" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Body -->
+  <rect x="16" y="15" width="32" height="34" rx="6" fill="#0D7377"/>
+
+  <!-- Three windows -->
+  <rect x="19" y="22" width="7" height="9" rx="2" fill="#F59E0B"/>
+  <rect x="28.5" y="22" width="7" height="9" rx="2" fill="#F59E0B"/>
+  <rect x="38" y="22" width="7" height="9" rx="2" fill="#F59E0B"/>
+
+  <!-- Lower accent -->
+  <rect x="16" y="40" width="32" height="4" fill="#0A5C5F"/>
+  <rect x="16" y="43" width="32" height="6" rx="0" ry="6" fill="#0D7377"/>
+
+  <!-- Wheels -->
+  <circle cx="24" cy="52" r="3.5" fill="#1E293B"/>
+  <circle cx="40" cy="52" r="3.5" fill="#1E293B"/>
+
+  <!-- Rail -->
+  <rect x="10" y="54.5" width="44" height="2.5" rx="1" fill="#1E293B"/>
+</svg>
