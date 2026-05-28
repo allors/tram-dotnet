@@ -27,12 +27,15 @@ var config = new TramSchemaConfigBuilder()
 var schema = new TramSchema(config);
 ```
 
-Interfaces with supertypes are also supported:
+### Interfaces
+
+Object types can inherit from interfaces, and interfaces can inherit from other interfaces. Pass supertypes as the second argument to `AddInterface` or `AddClass`:
 
 ```csharp
-.AddInterface("I1", ["I12"])
-.AddInterface("I12")
-.AddClass("C1", ["I1"])
+.AddInterface("Named")
+.AddInterface("LivingThing", ["Named"])
+.AddClass("Animal", ["LivingThing"])
+.AddClass("Person", ["Animal"])
 ```
 
 ## Create Objects and Set Properties
@@ -55,6 +58,16 @@ tram.Set(acme, name, "Acme");
 var jane = tram.Create(person);
 tram.Set(jane, firstName, "Jane");
 ```
+
+## Delete Objects
+
+`Delete` removes an object from the TRAM. It clears every attribute and removes the object from every relationship it participates in, as part of the same checkpoint:
+
+```csharp
+tram.Delete(jane);
+```
+
+Unknown or already-deleted handles are ignored.
 
 ## Relationships
 
@@ -124,6 +137,36 @@ tram.Add(acme, customers, jane);
 // Both ends are collections
 var orgs = tram.Get(jane, organizationsWhereCustomer);
 Assert.Contains(acme, orgs);
+```
+
+## Reading State
+
+Beyond `Get`, a few helpers expose the current contents of the TRAM:
+
+```csharp
+// Every object handle, in no defined order.
+var all = tram.Objects();
+
+// Handles whose class is assignable to the given object type (includes subclasses).
+var people = tram.ObjectsOfType(person);
+
+// The concrete TramClass of an object.
+TramClass type = tram.GetClass(jane);
+
+// True when an object with the given handle still exists.
+bool exists = tram.Exists(jane);
+```
+
+To-many results and `Objects()` / `ObjectsOfType()` return handles as a set, in no defined order — do not rely on iteration order.
+
+`TryGet` overloads return `false` when an attribute is unset, a to-one relation is empty, or a to-many relation has no members:
+
+```csharp
+if (tram.TryGet(jane, firstName, out object? value)) { /* value is set */ }
+
+if (tram.TryGet(acme, owner, out Handle item)) { /* acme has an owner */ }
+
+if (tram.TryGet(acme, employees, out IEnumerable<Handle> items)) { /* acme has employees */ }
 ```
 
 ## Transaction Lifecycle

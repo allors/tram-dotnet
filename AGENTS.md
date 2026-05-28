@@ -30,6 +30,7 @@
 - Verify builds succeed and tests are green before considering a task complete
 - When fixing bugs, always write a failing test first or at least amend an existing test
 - When creating a new test, find a suitable existing class to add the test to; avoid creating new test classes
+- Keep the mermaid metamodel diagram in `docs/architecture.md` in sync with the schema types under `Allors.Tram/Schema/`.
 
 ## Build Commands
 

@@ -49,7 +49,7 @@ tram.Set(jane, firstName, "Jane");
 tram.Derive();
 ```
 
-See [Getting Started](https://github.com/allors/tram-dotnet/blob/main/docs/getting-started.md) for the full walkthrough — relationships, change tracking, transactions, and guards.
+See [Getting Started](https://github.com/allors/tram-dotnet/blob/main/docs/getting-started.md) for the full walkthrough — relationships, change tracking, transactions, and derivations.
 
 ## Documentation
 

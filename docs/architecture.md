@@ -34,6 +34,78 @@ The schema is defined at startup via `TramSchemaConfigBuilder` and is immutable 
 - **Object types** - `TramClass` and `TramInterface` (both extend `TramObjectType`), with optional inheritance
 - **Properties** - `TramAttribute` for value-typed properties, and bidirectional relations split into a writable **role** (`ITramRole`) and a read-only **inverse** (`ITramInverse`). Both ends are `ITramRelationEnd`s.
 
+The metamodel behind these concepts:
+
+```mermaid
+---
+title: TRAM Schema Metamodel
+---
+classDiagram
+    %% Type hierarchy
+    class TramType {
+        <<abstract>>
+        +Schema
+        +SingularName
+        +PluralName
+    }
+    class TramValueType
+    class TramObjectType {
+        <<abstract>>
+        +Supertypes
+        +Subtypes
+        +IsAssignableFrom()
+    }
+    class TramClass
+    class TramInterface
+
+    TramType <|-- TramValueType
+    TramType <|-- TramObjectType
+    TramObjectType <|-- TramClass
+    TramObjectType <|-- TramInterface
+
+    %% Property hierarchy
+    class ITramProperty {
+        <<interface>>
+        +DeclaringType
+        +Name
+    }
+    class ITramAttribute {
+        <<interface>>
+    }
+    class ITramRelationEnd {
+        <<interface>>
+        +OtherEnd
+        +IsOne
+        +IsMany
+    }
+    class ITramRole {
+        <<interface>>
+    }
+    class ITramInverse {
+        <<interface>>
+    }
+
+    ITramProperty <|-- ITramAttribute
+    ITramProperty <|-- ITramRelationEnd
+    ITramRelationEnd <|-- ITramRole
+    ITramRelationEnd <|-- ITramInverse
+
+    %% Container
+    class TramSchema {
+        +TypeByName
+    }
+
+    %% Associations
+    TramSchema "1" *-- "*" TramType : Types
+    TramObjectType "1" *-- "*" ITramProperty : DeclaredProperties
+    ITramAttribute "*" --> "1" TramValueType : Type
+    ITramRelationEnd "*" --> "1" TramObjectType : Type
+    ITramRole "1" <--> "1" ITramInverse : OtherEnd
+    TramObjectType "*" --> "*" TramInterface : Supertypes
+```
+
+The diagram shows the abstract type and property hierarchy. The strongly-typed concrete classes used throughout [Getting Started](getting-started.md) — `TramOneToOneRole`, `TramOneToManyRole`, `TramManyToOneRole`, `TramManyToManyRole`, and their `*Inverse` counterparts — extend `ITramRole` / `ITramInverse` via the intermediate `ITramToOneRole` / `ITramToManyRole` and `ITramToOneInverse` / `ITramToManyInverse` interfaces. The `Get` overloads on `IReadOnly` dispatch on those to-one / to-many intermediates.
+
 ### Relationships
 
 | Multiplicity | Role (writable) | Inverse (read-only) |
