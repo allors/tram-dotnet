@@ -17,6 +17,10 @@
 - TRAM is in full initial development, breaking changes are allowed
 
 ## Git
+- Use **Purpose Prefixes** for descriptive branch names: a prefix that states what the branch is
+  for, such as `feature/`, `fix/`, `docs/`, or `chore/`. Do not use **AI Agent Source Prefixes**:
+  a prefix that names the agent or tool that created the branch, such as `claude/`, `codex/`,
+  or `copilot/`.
 - No AI attribution in commits (no "Generated with", "Co-authored-by", or similar trailers)
 - Keep commits focused and well-described
 - Use conventional commit format: type(scope): description
